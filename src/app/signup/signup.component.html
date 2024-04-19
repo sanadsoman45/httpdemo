@@ -1,0 +1,93 @@
+<div class="container">
+  <form [formGroup]="signupForm">
+    <div class="row mt-5 justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Signup</div>
+          <div class="card-body">
+            <div>
+              <label for="firstname">First Name</label>
+              <input
+                formControlName="firstName"
+                type="text"
+                class="form-control"
+                id="firstname"
+                placeholder="Enter firstname"
+              />
+            </div>
+
+            <div>
+              <label for="lastname">Last Name</label>
+              <input
+                formControlName="lastName"
+                type="text"
+                class="form-control"
+                id="lastname"
+                placeholder="Enter lastname"
+              />
+            </div>
+
+            <div>
+              <label for="emailid">Email Id</label>
+              <input
+                formControlName="emailid"
+                type="text"
+                class="form-control"
+                id="emailid"
+                placeholder="Enter emailid"
+              />
+            </div>
+
+            <div>
+              <label for="mobnum">Mobile Number</label>
+              <input
+                formControlName="mobnum"
+                maxlength="10"
+                type="text"
+                class="form-control"
+                id="mobnum"
+                placeholder="Enter mobnum"
+              />
+            </div>
+            <p
+              *ngIf="signupForm.controls['mobnum'].errors"
+              [ngClass]="signupForm.controls['mobnum'].errors ? 'error' : null"
+            >
+              Only Numbers are Allowed.
+            </p>
+
+            <div>
+              <label for="password">Password</label>
+              <input
+                formControlName="password"
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Enter password"
+              />
+            </div>
+
+            <div>
+              <label for="repass">Renter Password</label>
+              <input
+                formControlName="repassword"
+                type="password"
+                class="form-control"
+                id="repass"
+                placeholder="Reenter Password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary mt-3"
+              (click)="onSubmit()"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

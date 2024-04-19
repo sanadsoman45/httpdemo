@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <!-- Add other table headers as needed -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userData">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <!-- Display other user properties as needed -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

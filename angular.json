@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/httpdemo",
+            "outputPath": "dist/httpdemo/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -25,6 +25,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -60,10 +61,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "httpdemo:build:production"
+              "browserTarget": "httpdemo:build:production",
+              "proxyConfig": "./proxy.conf.json"
             },
             "development": {
-              "browserTarget": "httpdemo:build:development"
+              "browserTarget": "httpdemo:build:development",
+              "proxyConfig": "./proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -91,6 +94,64 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/httpdemo/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "proxyConfig": "./proxy.conf.json",
+              "browserTarget": "httpdemo:build:development",
+              "serverTarget": "httpdemo:server:development"
+            },
+            "production": {
+              "proxyConfig": "./proxy.conf.json",
+              "browserTarget": "httpdemo:build:production",
+              "serverTarget": "httpdemo:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "proxyConfig": "./proxy.conf.json",
+              "browserTarget": "httpdemo:build:production",
+              "serverTarget": "httpdemo:server:production"
+            },
+            "development": {
+              "proxyConfig": "./proxy.conf.json",
+              "browserTarget": "httpdemo:build:development",
+              "serverTarget": "httpdemo:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
